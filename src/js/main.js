@@ -38,7 +38,7 @@ function init(el) {
                     evt.start_time = hours + ':' + mins;
                 }
 
-                evt.desc = [evt.start_time, evt.event_date, evt.city].filter(s => s).join(', ');
+                evt.desc = [[evt.event_date, evt.start_time].filter(s=>s).join(' '), evt.city].filter(s => s).join(', ');
             });
             eventsEl.innerHTML = eventsTemplateFn({events});
         });
@@ -66,7 +66,7 @@ function init(el) {
             }, function (err) {
                 console.log(err);
                 userLocationEl.removeAttribute('data-is-loading');
-                userLocationEl.addAttribute('data-has-error', '');
+                userLocationEl.setAttribute('data-has-error', '');
             });
 
             userLocationEl.blur();

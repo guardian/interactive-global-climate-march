@@ -4,10 +4,9 @@ html {
 
 body {
     margin: 0;
-    background-color: white;
+    padding: 10px 10px 0;
+    background-color: #f1f1f1;
     color: #333;
-
-    @include fs-bodyCopy(2);
 }
 
 // Link styles don't exist on the app
@@ -42,23 +41,29 @@ h2 {
 }
 
 h1 {
-    @include fs-headline(6);
-    margin: 0 0 12px 0;
+    @include fs-bodyHeading(3);
+}
+
+.sub {
+    @include fs-bodyHeading(3);
+    color: #767676;
+    margin-top: -4px;
 }
 
 .events {
     list-style: none;
-    margin: 0;
+    margin: 0 -10px;
     padding: 8px 0 0;
 
     border-top: 1px solid #bdbdbd;
-    height: 300px;
+    height: 240px;
     overflow-y: scroll;
 }
 
 .event {
     @include fs-textSans(2);
 
+    padding: 0 10px;
     margin-bottom: 8px;
 
     border-bottom: 1px solid #dcdcdc;
@@ -105,6 +110,7 @@ h1 {
     }
 }
 
-.madlib {
-    border-bottom: 1px solid #bdbdbd;
+.note {
+    @include fs-textSans(1);
+    color: #999;
 }
