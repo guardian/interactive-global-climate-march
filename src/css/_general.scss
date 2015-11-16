@@ -1,7 +1,11 @@
+html {
+    overflow-y: hidden;
+}
+
 body {
     margin: 0;
-    padding: 0;
     background-color: white;
+    color: #333;
 
     @include fs-bodyCopy(2);
 }
@@ -26,4 +30,81 @@ a {
     @include mq(mobileLandscape) {
         padding: 20px;
     }
+}
+
+p {
+    margin: 0 0 8px 0;
+}
+
+h1,
+h2 {
+    margin: 0;
+}
+
+h1 {
+    @include fs-headline(6);
+    margin: 0 0 12px 0;
+}
+
+.events {
+    list-style: none;
+    margin: 0;
+    padding: 8px 0 0;
+
+    border-top: 1px solid #bdbdbd;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.event {
+    @include fs-textSans(2);
+
+    margin-bottom: 8px;
+
+    border-bottom: 1px solid #dcdcdc;
+    &:last-child {
+        border-bottom: 0;
+    }
+}
+
+.event__name {
+    @include fs-bodyHeading(1);
+    line-height: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.event__rsvp {
+    display: block;
+    float: right;
+
+    @include fs-textSans(2);
+    font-weight: 600;
+
+    &,
+    &:hover {
+        text-decoration: none;
+        color: white;
+    }
+
+    margin: 0 0 0 10px;
+    padding: 5px 5px 5px 10px;
+    border-radius: 100px;
+    background-color: #005689;
+    transition: background-color 0.1s ease-out;
+    &:hover {
+        background-color: #00456e;
+    }
+
+    & > svg {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        vertical-align: middle;
+    }
+}
+
+.madlib {
+    border-bottom: 1px solid #bdbdbd;
 }

@@ -8,6 +8,12 @@ export default function geocode(query, fn) {
         'type': 'json',
         'crossOrigin': true,
         'error': err => fn(err),
-        'success': resp => fn(null, resp)
+        'success': resp => {
+            if (resp.features.length > 0) {
+                fn(null, resp)
+            } else {
+                fn('No features');
+            }
+        }
     });
 }

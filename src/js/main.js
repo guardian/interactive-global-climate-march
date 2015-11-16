@@ -9,6 +9,9 @@ import eventsHTML from './text/events.html!text'
 
 var eventsTemplateFn = doT.template(eventsHTML);
 
+const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+
 function init(el) {
     iframeMessenger.enableAutoResize();
 
@@ -17,11 +20,27 @@ function init(el) {
     function getEvents(lat, lng) {
         reqwest({
             'url': `https://secure.avaaz.org/act/events.php?resource=event&action=getAllNearbyEvents&calendar_id=3&partners[]=350.org&partners[]=WordPress&unit=km&lat=${lat}&lng=${lng}&limit=10`,
-            'type': 'json',
+            'type': 'jsonp',
+            'jsonpCallback': 'jsonp',
             'crossOrigin': true
         }).then(resp => {
-            console.log(resp);
-            eventsEl.innerHTML = eventsHTML(resp);
+            var urls = resp.events.map(e => e.rsvp_url);
+            var events = resp.events.filter((e, i) => urls.indexOf(e.rsvp_url) === i);
+            events.forEach(evt => {
+                if (evt.event_date) {
+                    let [year, month, day] = evt.event_date.split('-');
+                    let date = new Date(year, month - 1, day);
+                    evt.event_date = days[date.getDay()] + ' ' + day + ' ' + months[month - 1];
+                }
+
+                if (evt.start_time) {
+                    let [hours, mins, secs] = evt.start_time.split(':');
+                    evt.start_time = hours + ':' + mins;
+                }
+
+                evt.desc = [evt.start_time, evt.event_date, evt.city].filter(s => s).join(', ');
+            });
+            eventsEl.innerHTML = eventsTemplateFn({events});
         });
     }
 
