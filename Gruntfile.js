@@ -18,7 +18,7 @@ module.exports = function(grunt) {
                 tasks: ['sass:interactive'],
             },
             assets: {
-                files: ['src/assets/**/*'],
+                files: ['src/assets/**/*', 'src/embed.html'],
                 tasks: ['copy:assets']
             },
             harness: {
@@ -79,20 +79,15 @@ module.exports = function(grunt) {
             },
             assets: {
                 files: [
-                    {expand: true, cwd: 'src/', src: ['assets/**/*'], dest: 'build'},
+                    {expand: true, cwd: 'src/', src: ['assets/**/*', 'embed.html'], dest: 'build'},
                 ]
             },
             deploy: {
                 files: [
                     { // BOOT
                         expand: true, cwd: 'build/',
-                        src: ['boot.js'],
+                        src: ['boot.js', 'embed.html', 'main.js', 'main.css', 'assets/**/*'],
                         dest: 'deploy/<%= visuals.timestamp %>'
-                    },
-                    { // ASSETS
-                        expand: true, cwd: 'build/',
-                        src: ['main.js', 'main.css', 'main.js.map', 'main.css.map', 'assets/**/*'],
-                        dest: 'deploy/<%= visuals.timestamp %>/<%= visuals.timestamp %>'
                     }
                 ]
             }
@@ -159,20 +154,14 @@ module.exports = function(grunt) {
                 options: {
                 },
                 files: [
-                    { // ASSETS
-                        expand: true,
-                        cwd: 'deploy/<%= visuals.timestamp %>',
-                        src: ['<%= visuals.timestamp %>/**/*'],
-                        dest: '<%= visuals.s3.path %>',
-                        params: { CacheControl: 'max-age=2678400' }
-                    },
                     { // BOOT
                         expand: true,
                         cwd: 'deploy/<%= visuals.timestamp %>',
-                        src: ['boot.js'],
+                        src: ['*'],
                         dest: '<%= visuals.s3.path %>',
                         params: { CacheControl: 'max-age=60' }
-                    }]
+                    }
+                ]
             }
         },
 

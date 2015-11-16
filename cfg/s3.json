@@ -1,5 +1,5 @@
 {
 	"bucket": "gdn-cdn",
-	"path": "2015/05/example",
-	"domain": "http://visuals.guim.co.uk/"
+	"path": "2015/05/map-results/embed",
+	"domain": "https://interactive.guim.co.uk/"
 }
