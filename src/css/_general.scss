@@ -83,6 +83,8 @@ h1 {
 .event__rsvp {
     display: block;
     float: right;
+    position: relative;
+    z-index: 2;
 
     @include fs-textSans(2);
     font-weight: 600;
